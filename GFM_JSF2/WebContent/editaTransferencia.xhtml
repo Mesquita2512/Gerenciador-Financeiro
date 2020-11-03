@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>editarTransferência</title>
+	<h:outputStylesheet>
+	 body{		
+			background-color: rgba(0,0,0,.1);
+			padding: 2% 10% 2% 10%; 
+			margin: 2% 10% 2% 10%; 
+			border: solid;
+			border-color: rgba(0,0,0,.3);
+			}
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	
+	<h:form>
+	<div style="margin-left: 22%; margin-right:22%">
+		<p:messages id="messagesTransferência" />
+		<p:panelGrid>
+			<f:facet name="header">
+					<p:row>
+						<p:column colspan="2" style="color:blue; font-size: 30px">Editar Transferência</p:column>
+					</p:row>
+			</f:facet>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="listaContas1" value="Conta para Débito:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="listaContas1" disabled="true"
+						value="#{transferenciaBean.transf.conta_Debito.cod_Conta}">
+						<f:selectItems value="#{contaBean.lista}" var="contas"
+							itemLabel="#{contas.nom_Conta}" itemValue="#{contas.cod_Conta}" />
+					</p:selectOneMenu>			
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="listaContas2" value="Conta para Crédito:" />	
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="listaContas2" disabled="true"
+						value="#{transferenciaBean.transf.conta_Credito.cod_Conta}">
+						<f:selectItems value="#{contaBean.lista}" var="contas"
+							itemLabel="#{contas.nom_Conta}" itemValue="#{contas.cod_Conta}" />
+					</p:selectOneMenu>		
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Valor da Transferência:" for="valor" />
+				</p:column>
+				<p:column>
+					<p:inputNumber id="valor" value="#{transferenciaBean.transf.val_transferencia}"
+					symbol=" R$" symbolPosition="s" decimalSeparator="."
+					thousandSeparator="" placeholder="12.34">
+					<p:ajax update="valor" />
+				</p:inputNumber>			
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="data" value="Data da Operação" />
+				</p:column>
+				<p:column>
+					 <p:calendar id="data" value="#{transferenciaBean.transf.data_Tansferencia}">
+					 <f:convertDateTime pattern="dd/MM/yyyy"/>
+					 </p:calendar>
+					 
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="2" style="text-align: center">				
+					<p:commandButton value="Atualizar" action="#{transferenciaBean.editar()}" style="color:green" update="@form"/>
+					<p:commandButton value="Voltar" action="#{gerenciadorBean.voltar()}"  style="color:blue" update="@form"/>
+					<p:commandButton value="Sair" action="#{gerenciadorBean.sair()}" style="color:red" update="@form"/>
+				</p:column>
+				
+			</p:row>
+		</p:panelGrid>
+	</div>
+		
+		
+	</h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Gerenciar Conta</title>
+	<h:outputStylesheet>
+	 	form{
+	 	padding: 2% 30% 2% 30%;
+		
+ 		}
+ 		body{	
+ 			
+			margin: 2% 2% 2% 2%; 	
+			border: solid;
+			background-color: rgba(0,0,0,.1);
+			border-color: rgba(0,0,0,.3);
+			}
+			#form_Alterar{ 
+			 margin-left: 5%;
+			}
+			
+		
+	</h:outputStylesheet>
+	
+</h:head>
+<h:body>
+	<h:form id="form_Conta">
+	
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:dataTable id="listaContas" var="contas" value="#{contaBean.lista}" scrollable="true">
+			<f:facet name="header">
+					<p:row>
+						<p:column colspan="2" style="color:blue; ">Dados das Contas</p:column>
+					</p:row>
+			</f:facet>
+			
+			<p:column headerText="Nome da Conta" style="color:blue; text-align:center">
+				<h:outputText value="#{contas.nom_Conta}" style="color:green" />
+			</p:column>
+			
+			<p:column headerText="Valor" style="color:blue; text-align:center">
+				<h:outputText value="#{contas.val_Conta}" style="color:green" >
+					<f:convertNumber currencyCode="BRL" type="currency" />
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="Editar" style="color:blue; text-align:center">
+				<p:commandButton update=":form_Alterar" value="Editar" style="color:green; text-align:center" action="#{contaBean.mostraOculta()}" >
+					<f:setPropertyActionListener   target="#{contaBean.conta}" value="#{contas}" /> 
+				</p:commandButton>
+			</p:column>
+			
+			<p:column headerText="Excluir" style="color:blue; text-align:center">
+				<p:commandButton update=":form_Conta" value="Excluir" style="color:green; text-align:center" action="#{contaBean.excluirConta()}" >
+					<p:confirm header="Confirme" message="Deseja excluir a Conta Selecionanda e todas suas transações associadas?" icon="ui-icon-alert"/>
+					<f:setPropertyActionListener   target="#{contaBean.conta}" value="#{contas}" /> 
+				</p:commandButton>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-check" />
+        			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-times" />
+    			</p:confirmDialog> 
+			</p:column>
+		</p:dataTable>
+	
+	</h:form>
+	
+	<h:form id="form_Alterar">
+
+
+
+		<p:panelGrid>
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue">Criar/Editar Conta</p:column>
+				</p:row>
+			</f:facet>			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="nomConta" value="Nome:"/>
+				</p:column>
+				<p:column>
+					<p:inputText id="nomConta"   value="#{contaBean.conta.nom_Conta}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="valConta" value="Valor:" rendered="#{contaBean.mostra}"/>
+					<p:outputLabel for="valConta2" value="Valor:" rendered="#{contaBean.oculta}"/>
+				</p:column>
+				<p:column>
+					<p:inputNumber id="valConta"  value="#{contaBean.conta.val_Conta}" rendered="#{contaBean.mostra}"/>
+					<p:inputNumber id="valConta2"  value="#{contaBean.conta.val_Conta}" rendered="#{contaBean.oculta}" disabled="true"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2" style="text-align:center">
+					<p:commandButton value="Atualizar" action="#{contaBean.atualizarconta()}" style="color: green" 
+						rendered="#{contaBean.oculta}" update=":form_Conta"/>
+					<p:commandButton value="Salvar" action="#{contaBean.salvarConta()}" style="color: green"
+					 	rendered="#{contaBean.mostra}" update=":form_Conta"/>
+					<p:commandButton id="Limpar" value="Limpar" action="#{contaBean.limpar()}" style="color:orange" update="@form"/>
+					<p:commandButton id="voltar" value="Voltar" action="#{gerenciadorBean.voltar()}" style="color:blue"/>
+					<p:commandButton value="Sair" action="#{gerenciadorBean.sair()}" style="color: red"/>
+				</p:column>			
+			</p:row>
+		</p:panelGrid>
+		
+		
+	</h:form>
+</h:body>
+</html>

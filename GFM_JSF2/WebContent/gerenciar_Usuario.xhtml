@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Editar Usuário e/ou Conta</title>
+	<h:outputStylesheet>
+	 	form{
+	 	padding: 2% 35% 2% 35%;
+		
+ 		}
+ 		body{		
+			border: solid;
+			background-color: rgba(0,0,0,.1);
+			border-color: rgba(0,0,0,.3);
+			}
+			#form1{ 
+			margin-left: 9%;
+			}
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:messages id="messagesCadastro" />
+		<div id="form1">
+			<p:panelGrid id="form">
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="2" style="color:blue">atualizar Dados</p:column>
+					</p:row>
+				</f:facet>
+	
+				<p:row>
+					<p:column>
+						<p:outputLabel for="cadastroNome" value="Nome: " />
+					</p:column>
+					<p:column>
+						<p:inputText id="cadastroNome"
+							value="#{usuarioBean.usuario.nome}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="cadastrocpf" value="CPF: " />
+					</p:column>
+					<p:column>
+						<p:inputNumber id="cadastrocpf" value="#{usuarioBean.usuario.cpf}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="cadastroEndereco" value="Endereco: " />
+					</p:column>
+					<p:column>
+						<p:inputText id="cadastroEndereco"
+							value="#{usuarioBean.usuario.endereco}" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column>
+						<p:outputLabel for="cadastroTelefone" value="Telefone: " />
+					</p:column>
+					<p:column>
+						<p:inputText id="cadastroTelefone" value="#{usuarioBean.usuario.telefone}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="cadastroEmail" value="Email: " />
+					</p:column>
+					<p:column>
+						<p:inputText id="cadastroEmail"
+							value="#{usuarioBean.usuario.email}" />
+					</p:column>
+				</p:row>
+								
+			</p:panelGrid>
+		</div>
+		<br/>
+		
+		
+		<p:panelGrid >
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue">Dados de Acesso</p:column>
+				</p:row>
+			</f:facet>			
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroUsuario" value="Usuario: " />
+				</p:column>
+				<p:column>
+					<p:inputText id="cadastroUsuario"
+						value="#{usuarioBean.usuario.usuario}" disabled="true"/>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroSenha" value="Senha: " />
+				</p:column>
+				<p:column>
+					<p:password id="cadastroSenha"
+						value="#{usuarioBean.usuario.senha}" placeholder="mínimo 4 caracteres"/>
+				</p:column>
+				</p:row>
+				
+				<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroSenha2" value="Senha: " />
+				</p:column>
+				<p:column>
+					<p:password id="cadastroSenha2" value="#{usuarioBean.senha2}"  placeholder="mínimo 4 caracteres"/>
+				</p:column>
+			</p:row>			
+			
+			<p:row>
+				<p:column colspan="2" style="text-align: center">
+					<p:commandButton value="Atualizar" update="@form"
+						action="#{usuarioBean.atualizaAcesso()}" style="color:green"/>
+						
+						
+					<p:commandButton value="Excluir Usuário" action="#{usuarioBean.excluir()}" style="color: orange">
+					<p:confirm header="Confirme" message="Deseja realmente excluir o usuário selecionado?" icon="ui-icon-alert"/>
+					</p:commandButton>
+					
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-check" />
+        				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-times" />
+    				</p:confirmDialog> 
+    			
+					
+					<p:commandButton id="voltar" value="Voltar" action="#{gerenciadorBean.voltar()}" style="color:blue" />
+					<p:commandButton value="Sair"
+						action="#{gerenciadorBean.sair()}" style="color:red"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

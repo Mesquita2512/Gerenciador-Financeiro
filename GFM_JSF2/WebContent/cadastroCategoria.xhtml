@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastro Categoria:</title>
+	<h:outputStylesheet>
+ 		body{		
+			background-color: rgba(0,0,0,.1);
+			padding: 2% 10% 2% 20%; 
+			margin: 2% 10% 2% 15%; 
+			border: solid;
+			border-color: rgba(0,0,0,.3);
+			}
+			h2{
+			color:blue;
+			}
+</h:outputStylesheet>
+</h:head>
+<h:body>
+	
+	<h:form>
+		<p:messages id="messagesCategoria" />
+		<p:panelGrid>
+			<f:facet name="header">
+					<p:row>
+						<p:column colspan="2" style="color: blue">Cadastro de Categoria</p:column>
+					</p:row>
+			</f:facet>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Descrição:" for="categoria" />
+				</p:column>
+				<p:column>					
+					<p:inputText id="categoria" value="#{categoriaBean.categoria.den_Categoria}"/>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="console" value="Tipo:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="console" value="#{categoriaBean.categoria.tip_Categoria}"
+						style="width:135px; left:10px">
+						<f:selectItem itemLabel="E" itemValue="E" />
+						<f:selectItem itemLabel="S" itemValue="S" />				
+					</p:selectOneMenu><br />					
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="2" style="text-align: center">
+					<p:commandButton value="Salvar Categoria" action="#{categoriaBean.salvarCategoria()}" style="color:green"/>
+					<p:commandButton value="Voltar" action="#{gerenciadorBean.voltar()}" style="color: blue" onclick="history.back"/> 
+<!-- como voltar para a pagina anterior -->
+					<p:commandButton value="Sair" action="#{gerenciadorBean.sair()}" style="color:red"/>
+				</p:column>				
+			</p:row>			
+		</p:panelGrid>	
+		<br></br>
+		<br></br>
+		<p:outputLabel style="color: orange">E - Entrada/Receita</p:outputLabel>
+		<br></br>
+		<p:outputLabel style="color: orange">S - Saída/Despesa</p:outputLabel>
+		
+		<p:dataTable id="tableCategorias" scrollable="true" var="cat" value="#{categoriaBean.listaTodas}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+			<f:facet name="header">Lista de Categorias</f:facet>
+			<p:column headerText="Descrição" style="color:blue; text-align:center">
+			 	<h:outputText value="#{cat.den_Categoria}" style="color:green" />
+			</p:column>
+			<p:column headerText="Tipo" style="color:blue; text-align:center">
+				<h:outputText value="#{cat.tip_Categoria}" style="color:green" />
+			</p:column>
+			<p:column  headerText="Editar" style="color:blue; text-align:center">
+				<p:commandButton value="Editar" style="color:green" action="#{gerenciadorBean.relatoriosGraficos()}"></p:commandButton>
+			</p:column>
+			<p:column headerText="Excluir" style="color:blue; text-align:center">
+				<p:commandButton value="Excluir" style="color:green" action="#{gerenciadorBean.relatoriosGraficos()}"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+</html>

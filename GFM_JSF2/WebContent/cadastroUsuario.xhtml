@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastro de Usuário</title>
+	<h:outputStylesheet>
+	 	form{
+	 	padding: 2% 35% 0 35%;
+		
+ 		}
+ 		body{		
+			background-color: rgba(0,0,0,.1);
+			padding: 2% 5% 2% 5%; 
+			margin: 2% 10% 2% 10%; 
+			border: solid;
+			border-color: rgba(0,0,0,.3);
+			}
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form>
+		<p:messages id="messagesCadastro" />
+		<p:panelGrid>
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue">Dados do Usuário</p:column>
+				</p:row>
+			</f:facet>
+
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroNome" value="Nome: " />
+				</p:column>
+				<p:column>
+					<p:inputText id="cadastroNome" required="required"
+						value="#{usuarioBean.usuario.nome}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastrocpf" value="CPF: " />
+				</p:column>
+				<p:column>
+					<p:inputNumber id="cadastrocpf" value="#{usuarioBean.usuario.cpf}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroEndereco" value="Endereco: " />
+				</p:column>
+				<p:column>
+					<p:inputText id="cadastroEndereco"
+						value="#{usuarioBean.usuario.endereco}" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroTelefone" value="Telefone: " />
+				</p:column>
+				<p:column>
+					<p:inputText id="cadastroTelefone" value="#{usuarioBean.usuario.telefone}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroEmail" value="Email: " />
+				</p:column>
+				<p:column>
+					<p:inputText id="cadastroEmail"
+						value="#{usuarioBean.usuario.email}" />
+				</p:column>
+			</p:row>					
+		</p:panelGrid>
+		
+		<br /> <br />
+		
+		<p:panelGrid>
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue">Configuração de Conta</p:column>
+				</p:row>
+			</f:facet>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="nomConta" value="Nome:"/>
+				</p:column>
+				<p:column>
+					<p:inputText id="nomConta"  placeholder="Carteira" value="#{usuarioBean.conta.nom_Conta}" disabled="true"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="valConta" value="Valor:"/>
+				</p:column>
+				<p:column>
+					<p:inputNumber id="valConta" placeholder="0.00" value="#{usuarioBean.conta.val_Conta}"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		
+		<br /> <br />
+		
+		<p:panelGrid>
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue">Dados de Acesso</p:column>
+				</p:row>
+			</f:facet>			
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroUsuario" value="Usuario: " />
+				</p:column>
+				<p:column>
+					<p:inputText id="cadastroUsuario" required="required"
+						value="#{usuarioBean.usuario.usuario}" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroSenha" value="Senha: " />
+				</p:column>
+				<p:column>
+					<p:password id="cadastroSenha" value="#{usuarioBean.usuario.senha}"  placeholder="mínimo 4 caracteres" />
+				</p:column>
+			</p:row>	
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cadastroSenha2" value="Senha: "/>
+				</p:column>
+				<p:column>
+					<p:password id="cadastroSenha2" value="#{usuarioBean.senha2}"  placeholder="mínimo 4 caracteres"/>
+				</p:column>
+			</p:row>			
+			
+			<p:row>
+				<p:column colspan="2" style="text-align: center">
+					<p:commandButton value="Criar Usuário"
+						action="#{usuarioBean.salvar}" style="color:green"/>
+					<p:commandButton value="Cancelar"
+						action="#{gerenciadorBean.sair()}" style="color:red"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

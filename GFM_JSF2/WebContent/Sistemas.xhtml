@@ -1,0 +1,51 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Login</title>
+	<h:outputStylesheet>
+	 	form{
+	 	padding: 2% 35% 0 35%;
+		
+ 		}
+ 		body{		
+			background-color: rgba(0,0,0,.1);
+			padding: 10% 10% 30% 5%; 
+			margin: 2% 10% 2% 10%; 
+			
+			}
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form>
+		<p:messages id="messages" />
+		<p:panelGrid>
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue">Sistemas</p:column>
+				</p:row>
+			</f:facet>
+
+			<p:row>
+				<p:column colspan="2" style="text-align: left">
+					<p:commandButton value="Gerenciador Financeiro"
+						action="#{sistemas.gerenciadorFinanceiro()}" update="@form" style="color:green" />
+					<p:commandButton value="Gerenciador de Senhas"
+						action="#{sistemas.gerenciadorDeSenhas()}" update="@form"
+						style="color:blue" />
+					<p:commandButton value="Controle Veicular"
+						action="#{sistemas.ControleCombustivel()}" update="@form"
+						style="color:orange" />
+				</p:column>
+			</p:row>
+
+		</p:panelGrid>
+
+	</h:form>
+</h:body>
+</html>
