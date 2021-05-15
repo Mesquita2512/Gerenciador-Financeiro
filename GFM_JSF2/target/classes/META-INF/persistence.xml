@@ -12,6 +12,7 @@
 		<class>entity.Receita</class>
 		<class>entity.Despesa</class>
 		<class>entity.Transferencia</class>
+		<class>entity.Senha</class>
 		<validation-mode>NONE</validation-mode>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
