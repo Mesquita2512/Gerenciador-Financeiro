@@ -27,21 +27,21 @@
 <h:body>
 	<h:form>
 
-  		<h1 style="color:green; text-align:center">Gerenciador de Senhas</h1>
-		<h3 style="text-align:center">
-			<p:clock >
-			<f:convertDateTime pattern="dd/MM/yyyy"/>
+		<h1 style="color: green; text-align: center">Gerenciador de
+			Senhas</h1>
+		<h3 style="text-align: center">
+			<p:clock>
+				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</p:clock>
 		</h3>
-		
+
 		<div style="text-align: center">
-			<h2 style=" font-size: 30px; font-family: Helvetica">Cadastro/Usuário</h2>
-			<p:commandButton value="Cadastrar"
-				action="#{gerenciadorBean.cadastroSenha()}"
-				style="color:blue" />
-				<p:commandButton value="Usuário"
-				action="#{gerenciadorBean.gerenciarUsuario()}"
-				style="color:blue" />
+			<h2 style="font-size: 30px; font-family: Helvetica">Cadastro/Usuário</h2>
+
+			<p:commandButton value="Criar Login/Senha"
+				action="#{SenhaBean.cadastro_senha}" style="color:blue" />
+			<p:commandButton value="Usuário"
+				action="#{gerenciadorBean.gerenciarUsuario()}" style="color:blue" />
 			<p:commandButton value="Sair" action="#{gerenciadorBean.sair}"
 				style="color:red" />
 		</div>

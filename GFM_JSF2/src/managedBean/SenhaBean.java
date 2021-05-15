@@ -11,7 +11,9 @@ import dao.SenhaDao;
 public class SenhaBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private SenhaDao sDao;
+@SuppressWarnings("unused")
+private String criarSenhas(){
+	return "cadastro_Senha";
+}
 
 }

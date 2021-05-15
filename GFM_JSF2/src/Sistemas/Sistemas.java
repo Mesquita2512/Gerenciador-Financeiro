@@ -19,11 +19,8 @@ public class Sistemas implements Serializable {
 
 	public String gerenciadorDeSenhas() {
 
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Atenção!!!",
-				"Esta função não foi implementada ainda, aguarde!!!");
-		PrimeFaces.current().dialog().showMessageDynamic(message);
+		return "G_Senhas";
 
-		return "Sistemas";
 	}
 
 	public String ControleCombustivel() {
