@@ -73,7 +73,6 @@
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
 	</dependency>
-	
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-core</artifactId>
@@ -238,16 +237,12 @@
       <artifactId>tomcat-storeconfig</artifactId>
       <version>9.0.17</version>
     </dependency>
-    
     <dependency>
       <groupId>org.eclipse.jdt</groupId>
       <artifactId>ecj</artifactId>
       <version>3.15.0</version>
     </dependency>
   </dependencies>
-  
-  
-  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

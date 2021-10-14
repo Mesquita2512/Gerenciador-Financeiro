@@ -3,6 +3,7 @@
 	<name>GFM_JSF2</name>
 	<comment></comment>
 	<projects>
+		<project>Servers</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
