@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastro Despesa</title>
+	<h:outputStylesheet>
+ 	body{		
+			background-color: rgba(0,0,0,.1);
+			padding: 2% 5% 2% 5%; 
+			margin: 2% 10% 2% 10%; 
+			border: solid;
+			border-color: rgba(0,0,0,.3);
+			}
+	
+ 	
+</h:outputStylesheet>
+</h:head>
+<h:body id="body">
+
+	<h:form >
+	<div style="margin-left: 28%; margin-right:20%">
+			<p:messages id="messagesDespesa" />
+			<p:panelGrid id="tabela1">
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="2" style="color:blue; font-size: 30px">Cadastro de Despesa</p:column>
+					</p:row>
+				</f:facet>
+				
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Descrição:" for="descricao" />
+					</p:column>
+					<p:column>
+						<p:inputText id="descricao"
+							value="#{despesaBean.despesa.desc_Transacao}" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column>
+						<p:outputLabel for="console" value="Categoria:" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="console"
+							value="#{despesaBean.despesa.categoria}">
+							<f:selectItems value="#{despesaBean.lista}" var="despesas"
+								itemLabel="#{despesas.den_Categoria}"
+								itemValue="#{despesas.den_Categoria}" />
+						</p:selectOneMenu>
+						<p:commandButton value="Nova" style="left:5px; color: orange"
+							action="#{despesaBean.cadastroCategoria()}" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Valor:" for="valor" />
+					</p:column>
+					<p:column>
+						<p:inputNumber id="valor" symbol=" R$" symbolPosition="s"
+							decimalSeparator="," thousandSeparator=""
+                                                        value="#{despesaBean.despesa.val_Transacao}">
+							<p:ajax update="valor" />
+						</p:inputNumber>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column>
+						<p:outputLabel for="data" value="Data:" />
+					</p:column>
+					<p:column>
+						<p:calendar id="data" pattern="dd/MM/yyyy" 
+							value="#{despesaBean.despesa.date}">
+						</p:calendar>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column>
+						<p:outputLabel for="listaContas" value="Conta Débito:" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="listaContas"
+							value="#{despesaBean.conta.cod_Conta}">
+							<f:selectItems value="#{contaBean.lista}" var="contas"
+								itemLabel="#{contas.nom_Conta}" itemValue="#{contas.cod_Conta}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column colspan="2" style="text-align: center">
+						<p:commandButton id="salvar" value="Salvar"
+							action="#{despesaBean.salvarDespesa()}" update="@form"
+							style="color:green" />
+						<p:commandButton id="limpar" value="Limpar"
+							action="#{despesaBean.limpar()}" style="color:blue" update="@form"/>
+						<p:commandButton id="voltar" value="Voltar"
+							action="#{gerenciadorBean.voltar()}" style="color:orange" update="@form"/>
+						<p:commandButton id="sair" value="Sair"
+							action="#{gerenciadorBean.sair()}" style="color: red" update="@form" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</div>
+
+		<br/>
+		<br/>
+
+		<p:dataTable id="listaDespesas" var="despesas" value="#{despesaBean.listaDespesa}" scrollable="true">
+			<f:facet name="header">Últimas Despesas</f:facet>
+			<p:column headerText="Descrição" style="color:blue">
+				<h:outputText value="#{despesas.desc_Transacao}" style="color:green" />
+			</p:column>
+			<p:column headerText="Categoria" style="color:blue; text-align:left">
+				<h:outputText value="#{despesas.categoria}" style="color:green" />
+			</p:column>
+			<p:column headerText="Valor" style="color:blue; text-align:left">
+                            <h:outputText value="#{despesas.val_Transacao}" style="color:green" >
+					<f:convertNumber currencyCode="BRL" type="currency"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Data" style="color:blue; text-align:center">
+				<h:outputText value="#{despesas.date}" style="color:green" >
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Conta" style="color:blue; text-align:center">
+				<h:outputText value="#{despesas.conta.nom_Conta}" style="color:green" />
+			</p:column>
+			
+			<p:column headerText="Editar" style="color:blue; text-align:center">
+				<p:commandButton action="#{despesaBean.redirecionaDespesa(despesas)}" value="Editar" style="color:green" >
+         			<f:setPropertyActionListener  target="#{despesaBean.despesa}" value="#{despesas}" /> 
+         			
+       			</p:commandButton>
+			</p:column>
+			
+			<p:column headerText="Excluir" style="color:blue; text-align:center">
+				<p:commandButton update="@form" value="Excluir" style="color:green" action="#{despesaBean.excluir()}">
+				<p:confirm header="Confirme" message="Deseja excluir a Despesa Selecionada?" icon="ui-icon-alert"/>
+         			<f:setPropertyActionListener  target="#{despesaBean.despesa}" value="#{despesas}" /> 
+       			</p:commandButton>
+       			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-check" />
+        			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-times" />
+    			</p:confirmDialog>     			
+			</p:column>
+			
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+</html>
