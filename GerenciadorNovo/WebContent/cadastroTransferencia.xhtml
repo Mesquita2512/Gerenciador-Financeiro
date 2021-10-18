@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Transferência</title>
+	<h:outputStylesheet>
+	 body{		
+			background-color: rgba(0,0,0,.1);
+			padding: 2% 10% 2% 10%; 
+			margin: 2% 10% 2% 10%; 
+			border: solid;
+			border-color: rgba(0,0,0,.3);
+			}
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	
+	<h:form>
+	<div style="margin-left: 22%; margin-right:22%">
+		<p:messages id="messagesTransferência" />
+		<p:panelGrid>
+			<f:facet name="header">
+					<p:row>
+						<p:column colspan="2" style="color:blue; font-size: 30px">Transferência Entre Contas</p:column>
+					</p:row>
+			</f:facet>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="listaContas1" value="Conta para Débito:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="listaContas1"
+						value="#{transferenciaBean.cod_ContaDebito}">
+						<f:selectItems value="#{contaBean.lista}" var="contas"
+							itemLabel="#{contas.nom_Conta}" itemValue="#{contas.cod_Conta}" />
+					</p:selectOneMenu>			
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="listaContas2" value="Conta para Crédito:" />	
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="listaContas2"
+						value="#{transferenciaBean.cod_ContaCredito}">
+						<f:selectItems value="#{contaBean.lista}" var="contas"
+							itemLabel="#{contas.nom_Conta}" itemValue="#{contas.cod_Conta}" />
+					</p:selectOneMenu>		
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Valor da Transferência:" for="valor" />
+				</p:column>
+				<p:column>
+					<p:inputNumber id="valor" value="#{transferenciaBean.transf.val_transferencia}"
+					symbol=" R$" symbolPosition="s" decimalSeparator="."
+					thousandSeparator="" placeholder="12.34">
+					<p:ajax update="valor" />
+				</p:inputNumber>			
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="data" value="Data da Operação" />
+				</p:column>
+				<p:column>
+					 <p:calendar id="data" value="#{transferenciaBean.transf.data_Tansferencia}"/>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="2" style="text-align: center">				
+					<p:commandButton value="Salvar" action="#{transferenciaBean.salvarTransferencia()}" style="color:green" update="@form"/>
+					<p:commandButton id="Limpar" value="Limpar" action="#{transferenciaBean.limpar()}" style="color:orange" update="@form"/>
+					<p:commandButton value="Voltar" action="#{gerenciadorBean.voltar()}"  style="color:blue" update="@form"/>
+					<p:commandButton value="Sair" action="#{gerenciadorBean.sair()}" style="color:red" update="@form"/>
+				</p:column>
+				
+			</p:row>
+		</p:panelGrid>
+	</div>
+			
+			<br /><br />	
+			
+			<p:dataTable id="listaTransferencias" var="transf" value="#{transferenciaBean.lista}" scrollable="true">
+			<f:facet name="header">Últimas Tranferencias</f:facet>
+			<p:column headerText="Conta para Débito" style="color:blue;text-align:center">
+				<h:outputText value="#{transf.conta_Debito.nom_Conta}" style="color:green" />
+			</p:column>
+			<p:column headerText="Conta para Cédito" style="color:blue; text-align:center">
+				<h:outputText value="#{transf.conta_Credito.nom_Conta}" style="color:green" />
+			</p:column>
+			<p:column headerText="Valor" style="color:blue; text-align:center">
+				<h:outputText value="#{transf.val_transferencia}" style="color:green" >
+					<f:convertNumber currencyCode="BRL" type="currency"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Data" style="color:blue; text-align:center">
+				<h:outputText value="#{transf.data_Tansferencia}" style="color:green" >
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			
+			
+			<p:column headerText="Editar" style="color:blue; text-align:center">
+				<p:commandButton  value="Editar" style="color:green" action="#{transferenciaBean.redirecionar()}">
+         			<f:setPropertyActionListener  target="#{transferenciaBean.transf}" value="#{transf}" /> 
+         			
+       			</p:commandButton>
+			</p:column>
+			
+			<p:column headerText="Excluir" style="color:blue; text-align:center">
+				<p:commandButton update="@form" value="Excluir" action="#{transferenciaBean.excluir()}" style="color:green" >
+				<p:confirm header="Confirme" message="Deseja excluir a Despesa Selecionada?" icon="ui-icon-alert"/>
+         			<f:setPropertyActionListener  target="#{transferenciaBean.transf}" value="#{transf}" /> 
+       			</p:commandButton>
+       			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-check" />
+        			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-times" />
+    			</p:confirmDialog>     			
+			</p:column>
+			
+		</p:dataTable>
+		
+		
+	</h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Tela Gerenciador</title>
+	<h:outputStylesheet>
+		body{		
+			background-color: rgba(0,0,0,.1);
+			padding: 0% 10% 2% 10%; 
+			margin: 2% 10% 2% 10%; 
+			border: solid;
+			border-color: rgba(0,0,0,.3);
+			}
+			h2{
+			color:blue;
+			}
+		
+		
+	
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form>
+
+  		<h1 style="color:blue; text-align:center">Gerenciador MKT</h1>
+		<h3 style="text-align:center">
+			
+			<p:clock >
+			<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:clock>
+		</h3>
+
+
+
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:dataTable id="listaContas" var="contas" value="#{contaBean.lista}" scrollable="true">
+		<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue; ">Dados das Contas</p:column>
+				</p:row>
+		</f:facet>
+			<p:column headerText="Nome da Conta" style="color:blue; text-align:center">
+				<h:outputText value="#{contas.nom_Conta}" style="color:green" />
+			</p:column>
+			<p:column headerText="Valor" style="color:blue; text-align:center">
+				<h:outputText value="#{contas.val_Conta}" style="color:green" >
+					<f:convertNumber currencyCode="BRL" type="currency"/>
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+		
+		<br/>
+		
+		
+		<p:dataTable id="listaReceitas" var="receitas" value="#{receitaBean.listaReceitas}" scrollable="true">
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue; ">Últimas Receitas</p:column>
+				</p:row>
+			</f:facet>
+			<p:column headerText="Descrição" style="color:blue;text-align:left">
+				<h:outputText value="#{receitas.desc_Transacao}" style="color:green" />
+			</p:column>
+			<p:column headerText="Categoria" style="color:blue;text-align:left">
+				<h:outputText value="#{receitas.categoria}" style="color:green" />
+			</p:column>
+			<p:column headerText="Valor" style="color:blue; text-align:center">
+				<h:outputText value="#{receitas.val_Transacao}" style="color:green" >
+					<f:convertNumber currencyCode="BRL" type="currency"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Data" style="color:blue">
+				<h:outputText value="#{receitas.date}" style="color:green" >
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Conta" style="color:blue;text-align:left">
+				<h:outputText value="#{receitas.conta.nom_Conta}" style="color:green" />
+			</p:column>	
+		</p:dataTable>
+		
+		<br/>
+	
+		<p:dataTable id="listaDespesas" var="despesas" value="#{despesaBean.listaDespesa}" scrollable="true">
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="2" style="color:blue; ">Últimas Despesas</p:column>
+				</p:row>
+			</f:facet>
+			<p:column headerText="Descrição" style="color:blue;text-align:left">
+				<h:outputText value="#{despesas.desc_Transacao}" style="color:green" />
+			</p:column>
+			<p:column headerText="Categoria" style="color:blue;text-align:left">
+				<h:outputText value="#{despesas.categoria}" style="color:green" />
+			</p:column>
+			<p:column headerText="Valor" style="color:blue; text-align:center">
+				<h:outputText value="#{despesas.val_Transacao}" style="color:green" >
+					<f:convertNumber currencyCode="BRL" type="currency"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Data" style="color:blue">
+				<h:outputText value="#{despesas.date}" style="color:green" >
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Conta" style="color:blue;text-align:left">
+				<h:outputText value="#{despesas.conta.nom_Conta}" style="color:green" />
+			</p:column>	
+		</p:dataTable>
+		
+		
+		<div style="text-align: center">
+			<h2 style=" font-size: 30px; font-family: Helvetica">Cadastrar Transações</h2>
+			<p:commandButton value="Despesa"
+				action="#{gerenciadorBean.criarDespesa}" style="color:green" />
+			<p:commandButton value="Receita"
+				action="#{gerenciadorBean.criarReceita}" style="color:green" />
+			<p:commandButton value="Transferência"
+				action="#{gerenciadorBean.realizarTransferencia}" style="color:green" />
+				<p:commandButton value="Categoria" style="left:5px; color: green"
+							action="#{despesaBean.cadastroCategoria()}" />
+	
+			<h2 style=" font-size: 30px; font-family: Helvetica">Consultar/Alterar Transações</h2>
+			<p:commandButton value="Editar/Excluir Operação" action="#{gerenciadorBean.editarExcluiTransacao()}" style="color:green" />
+			<p:commandButton value="Relatórios e Gráficos" action="#{gerenciadorBean.relatoriosGraficos()}" style="color:green" />
+		
+			<h2 style=" font-size: 30px; font-family: Helvetica">Conta/Usuário</h2>
+			<p:commandButton value="Conta" 
+				action="#{gerenciadorBean.gerenciarConta()}"
+				style="color:green" />
+				<p:commandButton value="Usuário"
+				action="#{gerenciadorBean.gerenciarUsuario()}"
+				style="color:green" />
+			<p:commandButton value="Sair" action="#{gerenciadorBean.sair}"
+				style="color:red" />
+		</div>
+
+
+
+
+	</h:form>
+
+</h:body>
+</html>
